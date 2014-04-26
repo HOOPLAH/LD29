@@ -19,6 +19,10 @@ function love.load()
 end
 
 function love.draw()
+    if check_collision(player, test) then
+		handle_collision(player, test)
+	end
+
 	camera:set()
 	player:draw()
 	love.graphics.draw(test.img, test.x, test.y)
@@ -27,10 +31,6 @@ function love.draw()
 	camera:draw()
 	
 	love.graphics.print("FPS: "..tostring(love.timer.getFPS()), 10, 10)
-	
-	if check_collision(player, test) then
-		handle_collision(player, test)
-	end
 end
 
 function love.update(dt)

@@ -47,8 +47,6 @@ function Player:draw()
 end
 
 function Player:update(dt)
-	--self:check_controls()
-	
 	self.center_x = self.x + self.width/2
 	self.center_y = self.y + self.height/2
 	
