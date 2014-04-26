@@ -19,10 +19,6 @@ function love.load()
 end
 
 function love.draw()
-    if check_collision(player, test) then
-		handle_collision(player, test)
-	end
-
 	camera:set()
 	player:draw()
 	love.graphics.draw(test.img, test.x, test.y)
@@ -35,7 +31,13 @@ end
 
 function love.update(dt)
 	player:update(dt)
-	camera:setCenter(player.center_x, player.center_y)
+    
+    if check_collision(player, test) then
+		handle_collision(player, test)
+	end
+    
+	camera:setCenter(player:get_center_x(), player:get_center_y())
+    
 	world:update(dt)
 end
 

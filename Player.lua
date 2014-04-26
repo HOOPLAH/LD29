@@ -7,8 +7,6 @@ function Player:initialize()
 	self.y = -1
 	self.width = 64
 	self.height = 64
-	self.center_x = self.x + self.width/2
-	self.center_y = self.y + self.height/2
 	self.speed_x = 300
 	self.speed_y = 300
 	self.img = love.graphics.newImage("Content/Textures/ammocrate.png")
@@ -47,9 +45,6 @@ function Player:draw()
 end
 
 function Player:update(dt)
-	self.center_x = self.x + self.width/2
-	self.center_y = self.y + self.height/2
-	
 	if self.move_up then
 		self.y = self.y - self.speed_y*dt
 	elseif self.move_down then
@@ -61,4 +56,12 @@ function Player:update(dt)
 	elseif self.move_right then
 		self.x = self.x + self.speed_x*dt
 	end
+end
+
+function Player:get_center_x()
+    return self.x + (self.width/2)
+end
+
+function Player:get_center_y()
+    return self.y + (self.height/2)
 end
