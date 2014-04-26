@@ -18,30 +18,28 @@ function Player:initialize()
 	self.move_right = false
 end
 
-function Player:check_controls()
-	function love.keypressed(key)
-		if key == 'w' then
-			self.move_up = true
-		elseif key == 's' then
-			self.move_down = true
-		elseif key == 'a' then
-			self.move_left = true
-		elseif key == 'd' then
-			self.move_right = true
-		end
-	end
-	
-	function love.keyreleased(key)
-		if key == 'w' then
-			self.move_up = false
-		elseif key == 's' then
-			self.move_down = false
-		elseif key == 'a' then
-			self.move_left = false
-		elseif key == 'd' then
-			self.move_right = false
-		end
-	end
+function Player:keypressed(key)
+    if key == 'w' then
+        self.move_up = true
+    elseif key == 's' then
+        self.move_down = true
+    elseif key == 'a' then
+        self.move_left = true
+    elseif key == 'd' then
+        self.move_right = true
+    end
+end
+
+function Player:keyreleased(key)
+    if key == 'w' then
+        self.move_up = false
+    elseif key == 's' then
+        self.move_down = false
+    elseif key == 'a' then
+        self.move_left = false
+    elseif key == 'd' then
+        self.move_right = false
+    end
 end
 
 function Player:draw()
@@ -49,7 +47,7 @@ function Player:draw()
 end
 
 function Player:update(dt)
-	self:check_controls()
+	--self:check_controls()
 	
 	self.center_x = self.x + self.width/2
 	self.center_y = self.y + self.height/2

@@ -42,5 +42,11 @@ end
 function love.keypressed(key)
 	if key == ' ' then
 		love.load()
-	end
+	else
+        player:keypressed(key)
+    end
+end
+
+function love.keyreleased(key)
+    player:keyreleased(key)
 end
