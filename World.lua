@@ -31,25 +31,25 @@ function World:update(dt)
 end
 
 function distance(obj_a, obj_b)
-    dist_x = obj_b.x - obj_a.x
-    dist_y = obj_b.y - obj_a.y
+    local dist_x = obj_b.x - obj_a.x
+    local dist_y = obj_b.y - obj_a.y
     return math.sqrt(dist_x*dist_x + dist_y*dist_y)
 end
 
 function World:updatePlayer(player)
-    if table.getn(self.points) > player.pointIndex then
-        if distance(self.points[player.point_index], player) <= 3 then
+    if table.getn(self.points) > player.point_index then
+        if player.x >= self.points[player.point_index+1].x then
             player.x = self.points[player.point_index+1].x
             player.y = self.points[player.point_index+1].y
             player.point_index = player.point_index + 1
         end
     
-        point_a = self.points[player.point_index]
-        point_b = self.points[player.point_index+1]
+        local point_a = self.points[player.point_index]
+        local point_b = self.points[player.point_index+1]
     
-        segLenY = point_b.y-point_a.y
-        segLenX = point_b.x-point_a.x
-        compRatio = (player.x-point_a.x) / segLenX -- completion ratio
+        local segLenY = point_b.y-point_a.y
+        local segLenX = point_b.x-point_a.x
+        local compRatio = (player.x-point_a.x) / segLenX -- completion ratio
         
         player.y = point_a.y + (compRatio*segLenY)
     end
