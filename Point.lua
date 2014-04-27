@@ -7,10 +7,10 @@ function Point:initialize(x, y)
 	self.y = y
 end
 
-function Point:getX()
+function Point:get_y()
 	return self.x
 end
 
-function Point:getY()
+function Point:get_y()
 	return self.y
 end

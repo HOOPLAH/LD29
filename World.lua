@@ -10,8 +10,8 @@ function World:initialize()
 end
 
 function World:createNewPoint()
-	local random_y = math.abs(love.math.random(self.lastMadePoint.y, self.lastMadePoint.y+256))
-	table.insert(self.points, Point:new(self.lastMadePoint.x+64, -random_y))
+	local random_y = math.abs(love.math.random(self.lastMadePoint.y, self.lastMadePoint.y+192))
+	table.insert(self.points, Point:new(self.lastMadePoint.x+128, -random_y))
 	self.lastMadePoint = self.points[table.getn(self.points)]
 end
 
@@ -51,6 +51,12 @@ function World:updatePlayer(player)
         local segLenX = point_b.x-point_a.x
         local compRatio = (player.x-point_a.x) / segLenX -- completion ratio
         
-        player.y = point_a.y + (compRatio*segLenY)
+		if player.jump_height ~= 0 and player.jump_initial_height - player.jump_height < point_a.y + (compRatio*segLenY) then
+			player.y = player.jump_initial_height - player.jump_height
+		else
+			player.jump_height = 0
+			player.jump_speed = 0
+			player.y = point_a.y + (compRatio*segLenY)
+		end
     end
 end

@@ -10,11 +10,17 @@ function Player:initialize()
 	self.speed_x = 300
 	self.speed_y = 300
 	self.img = love.graphics.newImage("Content/Textures/ammocrate.png")
+	
 	self.move_up = false
 	self.move_down = false
 	self.move_left = false
 	self.move_right = false
     self.point_index = 1
+	
+	self.jump_initial_height = 0
+	self.jump_height = 0
+	self.max_jump_height = 128 --pixels
+	self.jump_speed = 0
 end
 
 function Player:keypressed(key)
@@ -27,6 +33,12 @@ function Player:keypressed(key)
     elseif key == 'd' then
         self.move_right = true
     end
+	
+	if key == ' ' and self.jump_height == 0 then
+		self.jump_initial_height = self.y
+		self.jump_speed = 400
+		--print("jump")
+	end
 end
 
 function Player:keyreleased(key)
@@ -52,11 +64,16 @@ function Player:update(dt)
 		self.y = self.y + self.speed_y*dt
 	end
 	
-	if self.move_left then
-		self.x = self.x - self.speed_x*dt
-	elseif self.move_right then
-		self.x = self.x + self.speed_x*dt
+	self.x = self.x + self.speed_x*dt
+	
+	if self.jump_height > 0 or self.jump_speed > 0 then
+		self.jump_height = self.jump_height + self.jump_speed*dt
+		self.jump_speed = self.jump_speed - 800*dt
+	elseif self.jump_height < 0 then
+		self.jump_height = 0
+		self.jump_speed = 0
 	end
+	
 end
 
 function Player:get_center_x()

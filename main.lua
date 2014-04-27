@@ -37,7 +37,7 @@ function love.update(dt)
 end
 
 function love.keypressed(key)
-	if key == ' ' then
+	if key == 'h' then
 		love.load()
 	else
         player:keypressed(key)
