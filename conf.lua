@@ -1,5 +1,5 @@
-screen_width = 640
-screen_height = 480
+screen_width = 800
+screen_height = 600
 
 function love.conf(t)
 	t.modules.joystick = false

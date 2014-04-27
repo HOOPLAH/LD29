@@ -6,9 +6,9 @@ function Player:initialize()
 	self.x = 0
 	self.y = -1
 	self.width = 64
-	self.height = 64
+	self.height = 80
 	self.speed_x = 300
-	self.img = love.graphics.newImage("Content/Textures/ammocrate.png")
+	self.img = love.graphics.newImage("Content/Textures/dwarfInCart.png")
 	
 	self.boost_w = false
 	self.boost_s = false
@@ -52,7 +52,7 @@ function Player:keyreleased(key)
 end
 
 function Player:draw()
-	love.graphics.draw(self.img, self.x, self.y)
+	love.graphics.draw(self.img, self.x, self.y-self.height)
 end
 
 function Player:update(dt)	
