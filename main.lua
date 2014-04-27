@@ -15,13 +15,20 @@ function love.load()
 	
 	--create player
 	player = Player:new()
+    
+    camera:newLayer(1, draw_world)
+    camera:newLayer(1, draw_player)
+end
+
+function draw_world()
+    world:draw()
+end
+
+function draw_player()
+    player:draw()
 end
 
 function love.draw()
-	camera:set()
-	player:draw()
-	world:draw()
-	camera:unset()
 	camera:draw()
 	
 	love.graphics.print("FPS: "..tostring(love.timer.getFPS()), 10, 10)

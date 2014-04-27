@@ -7,20 +7,24 @@ World = class('World')
 function World:initialize()
 	self.lastMadePoint = Point:new(0, 0)
 	self.points = {self.lastMadePoint}
+    
+    self.track_img = love.graphics.newImage("Content/Textures/track.png")
 end
 
 function World:createNewPoint()
 	local random_y = math.abs(love.math.random(self.lastMadePoint.y, self.lastMadePoint.y+192))
-	table.insert(self.points, Point:new(self.lastMadePoint.x+128, -random_y, false))
+	table.insert(self.points, Point:new(self.lastMadePoint.x+20, 0, false))
 	self.lastMadePoint = self.points[table.getn(self.points)]
 end
 
 function World:draw()
 	for i, v in ipairs(self.points) do
-		love.graphics.rectangle("fill", v.x, v.y, 4, 4)
-		if i > 1 then
-			love.graphics.line(self.points[i-1].x, self.points[i-1].y, v.x, v.y)
-		end
+        love.graphics.draw(self.track_img, v.x, v.y-11)
+        -- love.graphics.rectangle("fill", v.x, v.y, 4, 4)
+        if i > 1 and not self.points[i-1].is_gap then
+            love.graphics.line(self.points[i-1].x, self.points[i-1].y-12, v.x, v.y-12)
+            love.graphics.line(self.points[i-1].x, self.points[i-1].y, v.x, v.y)
+        end
 	end
 end
 
@@ -54,6 +58,9 @@ function World:updatePlayer(player)
 		if (player.jump_height ~= 0 or player.jump_speed ~= 0) and player.jump_initial_height - player.jump_height < point_a.y + (compRatio*segLenY) then
 			player.y = player.jump_initial_height - player.jump_height
 		else
+            if player.jump_speed ~= 0 then
+                self.points[player.point_index].is_gap = true
+            end
 			player.jump_height = 0
 			player.jump_speed = 0
 			player.y = point_a.y + (compRatio*segLenY)

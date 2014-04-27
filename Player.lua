@@ -7,7 +7,7 @@ function Player:initialize()
 	self.y = -1
 	self.width = 64
 	self.height = 80
-	self.speed_x = 300
+	self.speed_x = 200
 	self.img = love.graphics.newImage("Content/Textures/dwarfInCart.png")
 	
 	self.boost_w = false
