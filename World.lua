@@ -39,6 +39,8 @@ end
 function World:updatePlayer(player)
     if table.getn(self.points) > player.point_index then
         if player.x >= self.points[player.point_index+1].x then
+            player.x = self.points[player.point_index+1].x
+            player.y = self.points[player.point_index+1].y
             player.point_index = player.point_index + 1
         end
     
@@ -49,7 +51,7 @@ function World:updatePlayer(player)
         local segLenX = point_b.x-point_a.x
         local compRatio = (player.x-point_a.x) / segLenX -- completion ratio
         
-		if player.jump_height ~= 0 and player.jump_initial_height - player.jump_height < point_a.y + (compRatio*segLenY) then
+		if (player.jump_height ~= 0 or player.jump_speed ~= 0) and player.jump_initial_height - player.jump_height < point_a.y + (compRatio*segLenY) then
 			player.y = player.jump_initial_height - player.jump_height
 		else
 			player.jump_height = 0
