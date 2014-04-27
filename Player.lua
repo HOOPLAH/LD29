@@ -11,10 +11,10 @@ function Player:initialize()
 	self.speed_y = 300
 	self.img = love.graphics.newImage("Content/Textures/ammocrate.png")
 	
-	self.move_up = false
-	self.move_down = false
-	self.move_left = false
-	self.move_right = false
+	self.boost_w = false
+	self.boost_s = false
+	self.boost_a = false
+	self.boost_d = false
     self.point_index = 1
 	
 	self.jump_initial_height = 0
@@ -25,13 +25,13 @@ end
 
 function Player:keypressed(key)
     if key == 'w' then
-        self.move_up = true
+        self.boost_w = true
     elseif key == 's' then
-        self.move_down = true
+        self.boost_s = true
     elseif key == 'a' then
-        self.move_left = true
+        self.boost_a = true
     elseif key == 'd' then
-        self.move_right = true
+        self.boost_d = true
     end
 	
 	if key == ' ' and self.jump_height == 0 then
@@ -43,13 +43,13 @@ end
 
 function Player:keyreleased(key)
     if key == 'w' then
-        self.move_up = false
+        self.boost_w = false
     elseif key == 's' then
-        self.move_down = false
+        self.boost_s = false
     elseif key == 'a' then
-        self.move_left = false
+        self.boost_a = false
     elseif key == 'd' then
-        self.move_right = false
+        self.boost_d = false
     end
 end
 
@@ -58,9 +58,9 @@ function Player:draw()
 end
 
 function Player:update(dt)
-	if self.move_up then
+	if self.boost_w then
 		self.y = self.y - self.speed_y*dt
-	elseif self.move_down then
+	elseif self.boost_s then
 		self.y = self.y + self.speed_y*dt
 	end
 	
