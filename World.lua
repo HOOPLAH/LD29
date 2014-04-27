@@ -39,8 +39,6 @@ end
 function World:updatePlayer(player)
     if table.getn(self.points) > player.point_index then
         if player.x >= self.points[player.point_index+1].x then
-            player.x = self.points[player.point_index+1].x
-            player.y = self.points[player.point_index+1].y
             player.point_index = player.point_index + 1
         end
     

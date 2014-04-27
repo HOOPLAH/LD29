@@ -8,7 +8,6 @@ function Player:initialize()
 	self.width = 64
 	self.height = 64
 	self.speed_x = 300
-	self.speed_y = 300
 	self.img = love.graphics.newImage("Content/Textures/ammocrate.png")
 	
 	self.boost_w = false
@@ -37,7 +36,6 @@ function Player:keypressed(key)
 	if key == ' ' and self.jump_height == 0 then
 		self.jump_initial_height = self.y
 		self.jump_speed = 400
-		--print("jump")
 	end
 end
 
@@ -57,13 +55,7 @@ function Player:draw()
 	love.graphics.draw(self.img, self.x, self.y)
 end
 
-function Player:update(dt)
-	if self.boost_w then
-		self.y = self.y - self.speed_y*dt
-	elseif self.boost_s then
-		self.y = self.y + self.speed_y*dt
-	end
-	
+function Player:update(dt)	
 	self.x = self.x + self.speed_x*dt
 	
 	if self.jump_height > 0 or self.jump_speed > 0 then
