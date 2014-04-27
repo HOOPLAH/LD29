@@ -14,6 +14,7 @@ function Player:initialize()
 	self.move_down = false
 	self.move_left = false
 	self.move_right = false
+    self.point_index = 1
 end
 
 function Player:keypressed(key)

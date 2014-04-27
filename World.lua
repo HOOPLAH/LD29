@@ -17,16 +17,40 @@ end
 
 function World:draw()
 	for i, v in ipairs(self.points) do
-		love.graphics.rectangle("fill", v:getX(), v:getY(), 4, 4)
+		love.graphics.rectangle("fill", v.x, v.y, 4, 4)
 		if i > 1 then
-			love.graphics.line(self.points[i-1]:getX(), self.points[i-1]:getY(), v:getX(), v:getY())
+			love.graphics.line(self.points[i-1].x, self.points[i-1].y, v.x, v.y)
 		end
-		--love.graphics.line( x1, y1, x2, y2, ... )
 	end
 end
 
 function World:update(dt)
-	if player.x > self.lastMadePoint.x then
+	if player.x+500 > self.lastMadePoint.x then
 		self:createNewPoint()
 	end
+end
+
+function distance(obj_a, obj_b)
+    dist_x = obj_b.x - obj_a.x
+    dist_y = obj_b.y - obj_a.y
+    return math.sqrt(dist_x*dist_x + dist_y*dist_y)
+end
+
+function World:updatePlayer(player)
+    if table.getn(self.points) > player.pointIndex then
+        if distance(self.points[player.point_index], player) <= 3 then
+            player.x = self.points[player.point_index+1].x
+            player.y = self.points[player.point_index+1].y
+            player.point_index = player.point_index + 1
+        end
+    
+        point_a = self.points[player.point_index]
+        point_b = self.points[player.point_index+1]
+    
+        segLenY = point_b.y-point_a.y
+        segLenX = point_b.x-point_a.x
+        compRatio = (player.x-point_a.x) / segLenX -- completion ratio
+        
+        player.y = point_a.y + (compRatio*segLenY)
+    end
 end
