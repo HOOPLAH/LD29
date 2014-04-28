@@ -12,8 +12,8 @@ function World:initialize()
 end
 
 function World:createNewPoint()
-	local random_y = math.abs(love.math.random(self.lastMadePoint.y, self.lastMadePoint.y+50))
-	table.insert(self.points, Point:new(self.lastMadePoint.x+27, 0, false))
+	local random_y = math.abs(love.math.random(self.lastMadePoint.y-2, self.lastMadePoint.y+2))
+	table.insert(self.points, Point:new(self.lastMadePoint.x+27, random_y, false))
 	self.lastMadePoint = self.points[table.getn(self.points)]
 end
 
