@@ -18,6 +18,9 @@ function love.load()
     
     camera:newLayer(1, draw_world)
     camera:newLayer(1, draw_player)
+	
+	font = love.graphics.newFont('Content/Fonts/8bit.ttf', 18)
+	love.graphics.setFont(font)
 end
 
 function draw_world()
@@ -31,7 +34,9 @@ end
 function love.draw()
 	camera:draw()
 	
-	love.graphics.print("FPS: "..tostring(love.timer.getFPS()), 10, 10)
+	--love.graphics.print("FPS: "..tostring(love.timer.getFPS()), 10, 10)
+	
+	love.graphics.printf(tostring(math.floor(world.lastMadePoint.x/32)), 396, 20, 800)
 end
 
 function love.update(dt)
