@@ -10,10 +10,10 @@ function Player:initialize()
 	self.speed_x = 200
 	self.img = love.graphics.newImage("Content/Textures/dwarfInCart.png")
 	
-	self.boost_w = false
-	self.boost_s = false
 	self.boost_a = false
+	self.boost_s = false
 	self.boost_d = false
+	self.boost_f = false
     self.point_index = 1
 	
 	self.jump_initial_height = 0
@@ -23,14 +23,14 @@ function Player:initialize()
 end
 
 function Player:keypressed(key)
-    if key == 'w' then
-        self.boost_w = true
+    if key == 'a' then
+        self.boost_a = true
     elseif key == 's' then
         self.boost_s = true
-    elseif key == 'a' then
-        self.boost_a = true
     elseif key == 'd' then
         self.boost_d = true
+	elseif key == 'f' then
+        self.boost_f = true
     end
 	
 	if key == ' ' and self.jump_height == 0 then
@@ -40,14 +40,14 @@ function Player:keypressed(key)
 end
 
 function Player:keyreleased(key)
-    if key == 'w' then
-        self.boost_w = false
+	if key == 'a' then
+        self.boost_a = false
     elseif key == 's' then
         self.boost_s = false
-    elseif key == 'a' then
-        self.boost_a = false
     elseif key == 'd' then
         self.boost_d = false
+	elseif key == 'f' then
+        self.boost_f = false
     end
 end
 
