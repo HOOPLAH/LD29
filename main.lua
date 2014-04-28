@@ -45,7 +45,7 @@ function love.update(dt)
 	world:update(dt)
     world:updatePlayer(player)
     
-    camera:setCenter(player:get_center_x(), player:get_center_y())
+    camera:setCenter(player:get_center_x(), 0)
 end
 
 function love.keypressed(key)
