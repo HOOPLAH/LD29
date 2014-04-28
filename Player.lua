@@ -52,7 +52,7 @@ function Player:keyreleased(key)
 end
 
 function Player:draw()
-	love.graphics.draw(self.img, self.x, self.y-self.height)
+	love.graphics.draw(self.img, self.x - (self.height/2), self.y-self.height)
 end
 
 function Player:update(dt)	

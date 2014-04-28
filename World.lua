@@ -12,18 +12,15 @@ function World:initialize()
 end
 
 function World:createNewPoint()
-	local random_y = math.abs(love.math.random(self.lastMadePoint.y, self.lastMadePoint.y+192))
-	table.insert(self.points, Point:new(self.lastMadePoint.x+20, 0, false))
+	local random_y = math.abs(love.math.random(self.lastMadePoint.y, self.lastMadePoint.y+50))
+	table.insert(self.points, Point:new(self.lastMadePoint.x+27, 0, false))
 	self.lastMadePoint = self.points[table.getn(self.points)]
 end
 
 function World:draw()
 	for i, v in ipairs(self.points) do
-        love.graphics.draw(self.track_img, v.x, v.y-11)
-        -- love.graphics.rectangle("fill", v.x, v.y, 4, 4)
-        if i > 1 and not self.points[i-1].is_gap then
-            love.graphics.line(self.points[i-1].x, self.points[i-1].y-12, v.x, v.y-12)
-            love.graphics.line(self.points[i-1].x, self.points[i-1].y, v.x, v.y)
+        if not v.is_gap then
+            love.graphics.draw(self.track_img, v.x, v.y-13)
         end
 	end
 end
