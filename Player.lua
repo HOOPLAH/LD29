@@ -57,6 +57,12 @@ end
 
 function Player:update(dt)	
 	self.x = self.x + self.speed_x*dt
+    
+    if self.speed_x > 0 then
+        self.speed_x = self.speed_x - (15*dt)
+    else
+        self.speed_x = 0
+    end
 	
 	if self.jump_height ~= 0 or self.jump_speed ~= 0 then
 		self.jump_height = self.jump_height + self.jump_speed*dt

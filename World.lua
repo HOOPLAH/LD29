@@ -38,29 +38,57 @@ function distance(obj_a, obj_b)
 end
 
 function World:updatePlayer(player)
-    if table.getn(self.points) > player.point_index then
-        if player.x >= self.points[player.point_index+1].x then
-            player.x = self.points[player.point_index+1].x
-            player.y = self.points[player.point_index+1].y
-            player.point_index = player.point_index + 1
-        end
-    
-        local point_a = self.points[player.point_index]
-        local point_b = self.points[player.point_index+1]
-    
-        local segLenY = point_b.y-point_a.y
-        local segLenX = point_b.x-point_a.x
-        local compRatio = (player.x-point_a.x) / segLenX -- completion ratio
-        
-		if (player.jump_height ~= 0 or player.jump_speed ~= 0) and player.jump_initial_height - player.jump_height < point_a.y + (compRatio*segLenY) then
-			player.y = player.jump_initial_height - player.jump_height
-		else
-            if player.jump_speed ~= 0 then
-                self.points[player.point_index].is_gap = true
+    if player.speed_x >= 0 then
+        if table.getn(self.points) > player.point_index then
+            if player.x >= self.points[player.point_index+1].x then
+                player.x = self.points[player.point_index+1].x
+                player.y = self.points[player.point_index+1].y
+                player.point_index = player.point_index + 1
             end
-			player.jump_height = 0
-			player.jump_speed = 0
-			player.y = point_a.y + (compRatio*segLenY)
-		end
+        
+            local point_a = self.points[player.point_index]
+            local point_b = self.points[player.point_index+1]
+        
+            local segLenY = point_b.y-point_a.y
+            local segLenX = point_b.x-point_a.x
+            local compRatio = (player.x-point_a.x) / segLenX -- completion ratio
+            
+            if (player.jump_height ~= 0 or player.jump_speed ~= 0) and player.jump_initial_height - player.jump_height < point_a.y + (compRatio*segLenY) then
+                player.y = player.jump_initial_height - player.jump_height
+            else
+                if player.jump_speed ~= 0 then
+                    self.points[player.point_index].is_gap = true
+                end
+                player.jump_height = 0
+                player.jump_speed = 0
+                player.y = point_a.y + (compRatio*segLenY)
+            end
+        end
+    else
+        if player.point_index > 2 then
+            if player.x <= self.points[player.point_index-1].x then
+                player.x = self.points[player.point_index-1].x
+                player.y = self.points[player.point_index-1].y
+                player.point_index = player.point_index - 1
+            end
+        
+            local point_a = self.points[player.point_index]
+            local point_b = self.points[player.point_index-1]
+        
+            local segLenY = point_b.y-point_a.y
+            local segLenX = point_b.x-point_a.x
+            local compRatio = (player.x-point_a.x) / segLenX -- completion ratio
+            
+            if (player.jump_height ~= 0 or player.jump_speed ~= 0) and player.jump_initial_height - player.jump_height < point_a.y + (compRatio*segLenY) then
+                player.y = player.jump_initial_height - player.jump_height
+            else
+                if player.jump_speed ~= 0 then
+                    self.points[player.point_index].is_gap = true
+                end
+                player.jump_height = 0
+                player.jump_speed = 0
+                player.y = point_a.y + (compRatio*segLenY)
+            end
+        end
     end
 end
